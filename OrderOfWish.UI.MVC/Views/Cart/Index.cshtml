@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+
+}
+@model MyCart
+    <!-- cart-main-area start -->
+    <div id="tableBody" class="cart-main-area ptb--120 bg__white">
+        <partial name="_cartView" model="@Model" />
+    </div>
+    <!-- cart-main-area end -->
+@section scripts{ 
+<script>
+    function CartUpdate(deger, cartId) {
+        $.ajax({
+            type: "Get",
+            url: "/Cart/UpdateCart?amount=" + deger + "&id=" + cartId,
+            success: function (response) {                
+                $("#tableBody").html(response)               
+               
+            }
+        });
+    }
+</script>
+}

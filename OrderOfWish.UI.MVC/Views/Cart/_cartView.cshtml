@@ -1,0 +1,72 @@
+﻿@model MyCart
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+            <form action="#">
+                <div class="table-content table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">Image</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-subtotal">Total</th>
+                                <th class="product-remove">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (CartItem item in Model.GetAllCartItem)
+                            {
+                                <tr>
+                                    <td class="product-thumbnail"><a href="#"><img src="@item.ProductImgUrl" alt="product img" /></a></td>
+                                    <td class="product-name"><a href="#">@item.Name</a></td>
+                                    <td class="product-price"><span class="amount">@item.Price ₺</span></td>
+                                    <td class="product-quantity"><input type="number" step="1" min="1" onclick="CartUpdate(this.value, @item.ID)" value="@item.Amout" /></td>
+                                    <td class="product-subtotal">@item.SubTotal ₺</td>
+                                    <td class="product-remove" onclick="CartDelete(@item.ID)"><a href="#">X</a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <div class="buttons-cart">
+                            <input type="submit" value="Update Cart" />
+                            <a href="#">Continue Shopping</a>
+                        </div>
+                        <div class="coupon">
+                            <h3>Coupon</h3>
+                            <p>Enter your coupon code if you have one.</p>
+                            <input type="text" placeholder="Coupon code" />
+                            <input type="submit" value="Apply Coupon" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 ">
+                        <div class="cart_totals">
+                            <h2>Cart Totals</h2>
+                            <table>
+                                <tbody>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td>
+                                            <strong><span class="amount">@(Model.GetAllCartItem.Sum(a=> a.SubTotal).ToString("C2"))</span></strong>
+                                            @*<strong><span id="subTotal" class="amount">@Model.SubTotal</span></strong>*@
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="wc-proceed-to-checkout">
+                                <a href="checkout.html">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

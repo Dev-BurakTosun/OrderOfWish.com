@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OrderOfWish.UI.MVC.Models
+{
+    public class ProductVM
+    {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public string Description { get; set; }
+        public string ProductImgURL { get; set; }
+        public decimal Price { get; set; }
+        public short Stock { get; set; }
+        public bool Continued { get; set; }
+        public int BrandID { get; set; }
+        public int GenreID { get; set; }
+        public int SupplierID { get; set; }
+        public string BrandName { get; set; }
+
+    }
+}

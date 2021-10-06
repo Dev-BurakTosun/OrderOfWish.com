@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderOfWish.Core\OrderOfWish.Core.csproj" />
+    <ProjectReference Include="..\OrderOfWish.DAL\OrderOfWish.DAL.csproj" />
+    <ProjectReference Include="..\OrderOfWish.Model\OrderOfWish.Model.csproj" />
+  </ItemGroup>
+
+</Project>

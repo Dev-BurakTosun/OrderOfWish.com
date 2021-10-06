@@ -1,0 +1,20 @@
+﻿@model List<GenreVM>
+
+
+<button onclick="GetAllProduct()" class="is-checked">All</button>
+
+@foreach (GenreVM item in Model)
+{    
+    
+        <button onclick="GetProductByGenre(@item.GenreID)">@item.GenreName</button>
+        @*<button data-filter=".cat--2">Tshirt</button>
+            <button data-filter=".cat--3">Shoes</button>
+            <button data-filter=".cat--4">Şapka</button>
+            <button data-filter=".cat--5">Pantolon</button>
+            <button data-filter=".cat--6">Şort</button>*@
+    
+
+}
+
+
+

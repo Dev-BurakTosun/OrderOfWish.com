@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<!-- Start Slider Area -->
+<div class="slider__container slider--one">
+    <div class="slider__activation__wrap owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide slider__full--screen" style="background: rgba(0, 0, 0, 0) url(images/slider/bg/1.png) no-repeat scroll center center / cover;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
+                        <div class="slider__inner">
+                            <h1>New Product <span class="text--theme">Collection</span></h1>
+                            <div class="slider__btn">
+                                <a class="htc__btn" href="cart.html">shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide slider__full--screen" style="background: rgba(0, 0, 0, 0) url(images/slider/bg/2.png) no-repeat scroll center center /cover  ;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                        <div class="slider__inner">
+                            <h1>New Product <span class="text--theme">Collection</span></h1>
+                            <div class="slider__btn">
+                                <a class="htc__btn" href="cart.html">shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+</div>
+<!-- Start Slider Area -->
+<!-- Start Our Product Area -->
+<section class="htc__product__area ptb--130 bg__white">
+    <div class="container">
+        <div class="htc__product__container">
+            <!-- Start Product MEnu -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="Genre" class="product__menu">
+                        <!--<button data-filter="*" class="is-checked">All</button>-->
+                        @*<button data-filter=".cat--1">Mont</button>
+                        <button data-filter=".cat--2">Tshirt</button>
+                        <button data-filter=".cat--3">Shoes</button>
+                        <button data-filter=".cat--4">Şapka</button>
+                        <button data-filter=".cat--5">Pantolon</button>
+                        <button data-filter=".cat--6">Şort</button>*@
+                    </div>
+                        <div id="singleProduct" class="row">
+                            @*!!!!!!!!!!single product area!!!!!!!!!!!!!!!!!!*@
+                        </div>
+                </div>
+            </div>
+            <!-- End Product MEnu -->
+        </div>
+    </div>
+</section>
+<!--End Our Product Area-->
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            GetAllProduct()
+            $.ajax({
+                type: "Get",
+                url: "http://localhost:54080/api/Genre/GetGenre",
+                success: function (response) {
+                    $.ajax({
+                        type: "Post",
+                        url: "http://localhost:52003/Home/GetGenre",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(response),
+                        success: function (data) {
+                            $("#Genre").html(data);
+                        }
+                    });
+                }
+
+            });
+        });      
+
+        function GetProductByGenre(id) {
+            $.ajax({
+                type: "Get",
+                url: "http://localhost:54080/api/Product/GetByGenre/" + id,
+                success: function (response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:52003/Home/GetProducts",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(response),
+                        success: function (data) {
+                            $("#singleProduct").html(data);
+                        }
+                    });
+                }
+            });
+        }
+
+        function GetAllProduct() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:54080/api/Product/GetProducts",//service url
+                success: function (response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:52003/Home/GetProducts",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(response),
+                        success: function (data) {
+                            $("#singleProduct").html(data);
+                        }
+                    });
+                }
+            });
+        }
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "Get",
+                url: "http://localhost:54080/api/Product/GetProductById/" + id,
+                success: function (response) {
+                    $.ajax({
+                        type: "Post",
+                        url: "/Cart/AddToCart",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(response),
+                        success: function () {
+                            alert("Ürününüz sepete eklenmiştir.")
+                        }
+                    })
+                }
+            })
+        }
+    </script>
+}
